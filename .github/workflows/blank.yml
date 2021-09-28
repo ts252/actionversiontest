@@ -22,6 +22,8 @@ jobs:
       - name: extract message
         id: extract-message
         run: |
+          echo "message is ${{github.push}}"
+          echo "message is ${{github.push.commits[0]}}"
           echo "message is ${{github.push.commits[0].message}}"
           echo "::set-output name=TEST::hi"
 

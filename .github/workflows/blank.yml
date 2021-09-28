@@ -15,7 +15,7 @@ jobs:
   label-branch-fixes:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    if: contains(github.push.commits.0.message, 'fix #')
+    if: contains(github.push.commits[0].message, 'fix #')
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:      

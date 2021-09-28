@@ -25,7 +25,7 @@ jobs:
         id: extract-message
         run: |          
           echo "${{github.event.commits[0].message}}" | egrep -o "(fix|close)\s+#([0-9]+)" | egrep -o "[0-9]+" | tr "\n" ", "
-          echo 
+          echo .
           echo 'buglist=`echo ${{github.event.push.commits[0].message}} | egrep -o "(fix|close)\s+#([0-9]+)" | egrep -o "[0-9]+" | tr "\n" ", "`' >> $GITHUB_ENV
           echo "::set-output name=issues::[${{env.buglist}}]"
 

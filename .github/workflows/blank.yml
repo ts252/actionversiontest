@@ -38,8 +38,12 @@ jobs:
         issue: ${{fromJSON(needs.extract.outputs.issues)}}        
     
     steps:
-     - name: use-issue
-       run: echo issue ${{ matrix.issue }}
+     - name: label-issue
+       uses: andymckay/labeler@master
+       with:
+         add-labels: "fixed-on-branch"
+         repo-token: ${{ secrets.GITHUB_TOKEN }}
+         issue-number: ${{ matrix.issue }}
     
  
           

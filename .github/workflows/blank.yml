@@ -22,9 +22,7 @@ jobs:
       - name: extract message
         id: extract-message
         run: |
-          echo "message is ${{github.event}}"
-          echo "message is ${{github.event.push}}"
-          echo "message is ${{github.event.push.commits[0]}}"
+          echo "event is ${{toJSON(github.event)}}"          
           echo "message is ${{github.event.push.commits[0].message}}"
           echo "::set-output name=TEST::hi"
 

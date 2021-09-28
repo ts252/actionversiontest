@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs: 
-      issue-ids: ${{ steps.extract-message.outputs.issues }}
+      issues: ${{ steps.extract-message.outputs.issues }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:      

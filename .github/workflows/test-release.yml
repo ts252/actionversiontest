@@ -26,7 +26,7 @@ jobs:
 
     - name: debug ref name
       run: |
-       echo ref="$GITHUB_REF" ref_name="$GITHUB_REF_NAME" release="${{ github.event.release.name }}"
+       echo ref="$GITHUB_REF" ref_name="$GITHUB_REF_NAME" release="${{ github.event.release.name }}" is_release="${{ !!github.event.release }}"
     - name: Sets env vars for release
       run: |
           echo "IMAGE_TAG=${{ vars.ECR_PROD_TAG }}" >> $GITHUB_ENV

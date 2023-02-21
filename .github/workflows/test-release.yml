@@ -34,7 +34,7 @@ jobs:
           echo "CLUSTER_NAME=${{ vars.PROD_CLUSTER_NAME }}" >> $GITHUB_ENV
           echo "MIGRATE_DB_PASSWORD=${{ secrets.PROD_MIGRATION_PASSWORD }}" >> $GITHUB_ENV
           echo "this is release."
-      if: ${{ github.release }}
+      if: ${{ github.release != null }}
 
     - name: Sets env vars for staging
       run: |

@@ -1,0 +1,46 @@
+
+name: Test release action
+
+on:
+
+  push:
+    branches: [ staging ]
+  release:
+    types: [ released, published ]
+
+jobs:
+
+  build:
+
+    concurrency:
+      group: ${{ github.ref }}
+      cancel-in-progress: true
+
+    name: Build Image and deploy
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Check out code
+      uses: actions/checkout@v3
+
+    - name: debug ref name
+      run: |
+       echo ref="$GITHUB_REF" ref_name="$GITHUB_REF_NAME" release="${{ github.release.name }}"
+    - name: Sets env vars for release
+      run: |
+          echo "IMAGE_TAG=${{ vars.ECR_PROD_TAG }}" >> $GITHUB_ENV
+          echo "DEPLOYMENT_TYPE=${{ vars.PROD_DEPLOYMENT_TYPE }}" >> $GITHUB_ENV
+          echo "CLUSTER_NAME=${{ vars.PROD_CLUSTER_NAME }}" >> $GITHUB_ENV
+          echo "MIGRATE_DB_PASSWORD=${{ secrets.PROD_MIGRATION_PASSWORD }}" >> $GITHUB_ENV
+          echo "this is release."
+      if: ${{ github.release }}
+
+    - name: Sets env vars for staging
+      run: |
+         echo "IMAGE_TAG=staging" >> $GITHUB_ENV
+         echo "DEPLOYMENT_TYPE=staging" >> $GITHUB_ENV
+         echo "CLUSTER_NAME=${{ vars.STAGING_CLUSTER_NAME }}" >> $GITHUB_ENV
+         echo "MIGRATE_DB_PASSWORD=${{ secrets.STAGING_MIGRATION_PASSWORD }}" >> $GITHUB_ENV
+         echo "this is staging."
+      if: ${{ github.ref_name == "staging" }}
